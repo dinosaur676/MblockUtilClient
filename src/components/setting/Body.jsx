@@ -43,7 +43,7 @@ const Body = () => {
 
     const onDeleteNetwork = async (network, category) => {
         try {
-            const result = await axios.delete("http://localhost:3000/api/network", {params: {network: network, category: category}});
+            const result = await axios.delete(SERVER_URL + "/api/network", {params: {network: network, category: category}});
 
             if(result.status === 200) {
                 const updateList = networkList.filter((item) => !(item.network === network && item.category === category))
@@ -58,7 +58,7 @@ const Body = () => {
     const onDeleteWallet = async (id) => {
 
         try {
-            const result = await axios.delete("http://localhost:3000/api/wallet", {params: {id: id}});
+            const result = await axios.delete(SERVER_URL + "/api/wallet", {params: {id: id}});
 
             if(result.status === 200) {
                 const updateList = walletList.filter((item) => item.id !== id)
@@ -78,7 +78,7 @@ const Body = () => {
 
     const onAddNetwork = async () => {
         try {
-            const result = await axios.put("http://localhost:3000/api/network", networkData);
+            const result = await axios.put(SERVER_URL + "/api/network", networkData);
 
 
             if (result.status === 200) {
@@ -103,7 +103,7 @@ const Body = () => {
     }
 
     const onAddWallet = async () => {
-        const result = await axios.put("http://localhost:3000/api/wallet", walletData);
+        const result = await axios.put(SERVER_URL + "/api/wallet", walletData);
 
         console.log(result)
 
