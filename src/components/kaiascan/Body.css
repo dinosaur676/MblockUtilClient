@@ -1,0 +1,33 @@
+.react-calendar__tile--active {
+    background: #4caf50; /* 선택된 날짜의 배경색 */
+    color: white;        /* 선택된 날짜의 텍스트 색 */
+}
+
+.react-calendar__tile--range {
+    background: #a5d6a7; /* 범위에 포함된 날짜의 배경색 */
+    color: black;        /* 범위 날짜의 텍스트 색 */
+}
+
+.custom-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.custom-button:hover {
+    background-color: #0056b3;
+}
+
+.loading {
+    cursor: wait; /* 로딩 중일 때 바뀔 커서 */
+}
+.sunday-tile {
+    color: red;
+}
+.satDay-tile {
+    color: deepskyblue;
+}

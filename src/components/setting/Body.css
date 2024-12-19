@@ -1,0 +1,86 @@
+.custom-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.custom-button:hover {
+    background-color: #0056b3;
+}
+
+.short-input {
+    font-Size: 16px;
+    width: 150px;
+    text-Align: center;
+    padding: 5px;
+}
+.middle-input {
+    font-Size: 16px;
+    text-Align: center;
+    padding: 5px;
+}
+.long-input {
+    font-Size: 16px;
+    width: 500px;
+    text-Align: center;
+    padding: 5px;
+}
+.form-input {
+    font-Size: 16px;
+    width: 500px;
+    height: 400px;
+    padding: 5px;
+    overflow: auto;
+    white-space: nowrap;
+}
+.input-div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.custom-modal {
+    background-color: #242424;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 700px; /* 원하는 너비 설정 */
+    max-width: 90%;
+    /*height: 600px; /* 원하는 높이 설정 */
+    max-height: 90%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-overlay {
+    background-color: rgba(0, 0, 0, 0.8); /* 흐릿한 배경의 색을 바꿉니다. */
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    background: red;
+}
+
+.modal-close-button:hover {
+    background: crimson; /* 호버 시 색상 변경 */
+}

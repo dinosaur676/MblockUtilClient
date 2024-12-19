@@ -1,0 +1,35 @@
+/* 테이블 스타일 */
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 18px;
+    text-align: center;
+}
+
+.custom-table th {
+    background-color: #888888; /* 헤더 배경색 (녹색) */
+    color: white; /* 텍스트 색 */
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.custom-table td {
+    font-size: 16px;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.custom-table-delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.custom-table-delete-button:hover {
+    background-color: crimson;
+}
