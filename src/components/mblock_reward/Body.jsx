@@ -3,8 +3,6 @@ import axios from "axios";
 import RewardTable from "./RewardTable.jsx";
 
 const Body = () => {
-    const [networkDict, setNetworkDict] = useState({})
-    const [walletDict, setWalletDict] = useState({});
     const [balanceDict, setBalanceDict] = useState({});
     const [priceDict, setPriceDict] = useState({});
     const [total, setTotal] = useState(0)
@@ -13,42 +11,6 @@ const Body = () => {
     const getCoinPrice = async () => {
         const response = await axios.get(SERVER_URL + "/api/price");
         return response.data;
-    }
-
-    const getNetwork = async () => {
-        try {
-            const response = await axios.get(SERVER_URL + "/api/network");
-            const dict = {}
-            for(let net of response.data) {
-                if(dict[net["network"]] == null)
-                    dict[net["network"]] = []
-
-                dict[net["network"]].push(net);
-            }
-
-            return dict;
-        }
-        catch (e) {
-            console.log(e)
-        }
-    }
-
-    const getWallet = async () => {
-        try {
-            const response = await axios.get(SERVER_URL + "/api/wallet");
-            const dict = {}
-            for(let wallet of response.data) {
-                if(dict[wallet["network"]] == null)
-                    dict[wallet["network"]] = [];
-
-                dict[wallet["network"]].push(wallet);
-            }
-
-            return dict;
-        }
-        catch (e) {
-            console.log(e)
-        }
     }
 
     const getBalance = async () => {

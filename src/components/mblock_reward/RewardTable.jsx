@@ -1,4 +1,4 @@
-import "./RewardTable.css"
+import "../Basic.css"
 // eslint-disable-next-line react/prop-types
 const Row = ({index, dictKey, balance, coinPrice}) => {
     return (

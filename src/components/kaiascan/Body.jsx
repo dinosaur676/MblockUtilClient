@@ -1,21 +1,23 @@
 import {useState} from "react";
 import Calendar from "react-calendar";
 import './Body.css'
-import './KaiaScan.css'
+import '../Basic.css'
 import Transaction from "./TransactionList.jsx";
 import axios from "axios";
 
 const Body = () => {
     const [addressDict, setAddressDict] = useState({
-        Contract: "",
-        Reward: "" ,
-        Commission: "",
-        MyAddress: ""
+        Contract: "0x8C8bb94c82902319c14a40149fE91aA73a9de2d3",
+        Reward: "0xdad50dc58727c00969802530c3fb270557ce4451" ,
+        Commission: "0x5d93f255FE5de348da424B20aD4f8c8AaA297d5E",
+        MyAddress: "0x5d93f255FE5de348da424B20aD4f8c8AaA297d5E"
     });
     const [total, setTotal] = useState(0.0)
     const [txList, setTxList] = useState([])
     const [dateRange, setDateRange] = useState([new Date(), new Date()])
     const [loading, setLoading] = useState(false)
+
+    const startStakingDate = new Date(2024, 11, 2);
 
     const url = "https://th-api.klaytnapi.com/v2/transfer/account/"
     const basicKey = import.meta.env.VITE_KAS_KEY
@@ -36,10 +38,11 @@ const Body = () => {
         setDateRange(range)
     }
 
-    const getTxList = async () => {
-        const startDate = Math.floor(dateRange[0] / 1000)
-        const endDate = Math.floor(dateRange[1] / 1000)
+    const getTxList = async (dateRangeArray) => {
 
+        const startDate = Math.floor(dateRangeArray[0] / 1000)
+        const endDate = Math.floor(dateRangeArray[1] / 1000)
+        console.log(startDate + " / " + endDate);
 
         const param = {
             "kind": "klay",
@@ -57,6 +60,17 @@ const Body = () => {
         }
     }
 
+    const resultTotalButton = async () => {
+        for(let addr in addressDict) {
+            if(addressDict[addr] === "") {
+                alert("주소와 날짜를 다시 한번 확인해주세요.");
+                return;
+            }
+        }
+
+        await searchTX([startStakingDate, new Date()]);
+    }
+
     const resultButton = async () => {
         for(let addr in addressDict) {
             if(addressDict[addr] === "") {
@@ -65,8 +79,13 @@ const Body = () => {
             }
         }
 
+        await searchTX(dateRange);
+
+    }
+
+    const searchTX = async (dateRangeArray) => {
         setLoading(true)
-        const response = await getTxList()
+        const response = await getTxList(dateRangeArray)
         let totalReward = 0.0;
 
         for(let item of response.data.items) {
@@ -88,20 +107,23 @@ const Body = () => {
             <div style={{flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <label style={{fontSize: "18px"}}>주소 입력</label>
                 <div style={{marginBottom: "20px"}}/>
-                <Address id1={"Contract"} id2={"Commission"} onValueChange={handleAddressDict}/>
+                <Address addressDict={addressDict} id1={"Contract"} id2={"Commission"} onValueChange={handleAddressDict}/>
                 <div style={{marginBottom: "20px"}}/>
-                <Address id1={"Reward"} id2={"MyAddress"} onValueChange={handleAddressDict}/>
+                <Address addressDict={addressDict} id1={"Reward"} id2={"MyAddress"} onValueChange={handleAddressDict}/>
                 <div style={{marginBottom: "20px"}}/>
             </div>
-            <div>
+            <div style={{gap: "10px", alignItems:"center", justifyItems:"center"}}>
                 <label style={{fontSize: "18px"}}>날짜 입력</label>
                 <div style={{marginBottom: "20px"}}/>
                 <CalendarBody dateRange={dateRange} onChangeDateRange={handleDateRange}/>
 
-                <button className="custom-button" onClick={resultButton}>결과</button>
+                <div style={{display:"flex", gap: "15px"}}>
+                    <button className="custom-button" onClick={resultTotalButton}>전체 조회</button>
+                    <button className="custom-button" onClick={resultButton}>부분 조회</button>
+                </div>
             </div>
             <hr/>
-            <div style={{flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <div style={{flexDirection: 'column', display: 'flex', justifyContent: 'center', alignItems: 'center', width:"100%"}}>
                 <label style={{fontSize: "18px"}}>총 보상</label>
                 <div style={{marginBottom: "20px"}}/>
                 <Total value={total}/>
@@ -117,13 +139,13 @@ const Body = () => {
 }
 
 // eslint-disable-next-line react/prop-types
-const Address = ({id1, id2, onValueChange}) => {
+const Address = ({addressDict, id1, id2, onValueChange}) => {
     return (
         <div style={{display: "flex", flexDirection: "row", gap: "10px"}}>
             <label>{id1} 주소</label>
-            <input type="text" onChange={(e) => onValueChange(id1, e.target.value)} style={{width: "300px"}}/>
+            <input type="text" onChange={(e) => onValueChange(id1, e.target.value)} value={addressDict[id1]} style={{width: "300px"}}/>
             <label>{id2} 주소</label>
-            <input type="text" onChange={(e) => onValueChange(id2, e.target.value)} style={{width: "300px"}}/>
+            <input type="text" onChange={(e) => onValueChange(id2, e.target.value)} value={addressDict[id2]} style={{width: "300px"}}/>
         </div>
     )
 }
